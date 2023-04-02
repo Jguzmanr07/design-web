@@ -1,15 +1,6 @@
 {
   "name": "design-web",
   "version": "0.0.1",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/otomomik/design-web.git"
-  },
-  "author": "otomomik",
-  "bugs": {
-    "url": "https://github.com/otomomik/design-web/issues"
-  },
-  "homepage": "https://github.com/otomomik/design-web#readme",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
