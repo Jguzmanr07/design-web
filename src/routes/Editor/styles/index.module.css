@@ -1,0 +1,14 @@
+.container {
+  display: grid;
+  grid-template-rows: 48px 1fr 24px;
+  height: 100dvh;
+}
+
+.toolBar {
+}
+
+.content {
+}
+
+.statusBar {
+}
