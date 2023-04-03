@@ -24,6 +24,7 @@ export const useContextMenu = ({
   const handleContextMenu = useCallback(
     (event: MouseEvent<HTMLElement>) => {
       event.preventDefault()
+      event.stopPropagation()
       const { clientX, clientY } = event
       setContextMenu(clientY, clientX, menus)
     },

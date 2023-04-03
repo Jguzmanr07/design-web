@@ -40,7 +40,6 @@ const Provider: FC<Props> = ({
   const [menus, setMenus] = useState<UseContextMenuProps['menus'] | null>(null)
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    console.log(event)
     switch (event.code) {
       case 'Escape': {
         setTop(null)
@@ -51,14 +50,12 @@ const Provider: FC<Props> = ({
   }, [])
 
   const handleClick = useCallback((event: MouseEvent) => {
-    console.log(event)
     setTop(null)
     setLeft(null)
     setMenus(null)
   }, [])
 
   const handleBlur = useCallback((event: FocusEvent) => {
-    console.log(event)
     setTop(null)
     setLeft(null)
     setMenus(null)

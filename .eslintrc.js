@@ -53,7 +53,15 @@ module.exports = {
     'no-restricted-imports': [
       'error',
       {
-        patterns: ['../', './App', './routes', './providers', './hooks'],
+        patterns: [
+          '../',
+          './App',
+          './routes',
+          './providers',
+          './hooks',
+          './types',
+          './commons',
+        ],
       },
     ],
     '@typescript-eslint/no-unused-vars': ['error'],
