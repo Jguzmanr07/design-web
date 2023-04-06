@@ -1,26 +1,15 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 
+import { editorRoutes } from '@/features/editor/routes'
 import { Providers } from '@/providers'
-import { Editor } from '@/routes/Editor'
-import { DesignerEditor } from '@/routes/Editor/Designer'
-import { Home } from '@/routes/Home'
 
 import type { FC } from 'react'
 
 const router = createBrowserRouter([
+  ...editorRoutes,
   {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: '/editor',
-    element: <Editor />,
-    children: [
-      {
-        path: 'designer',
-        element: <DesignerEditor />,
-      },
-    ],
+    element: <Navigate to="/editor" />,
+    path: '*',
   },
 ])
 

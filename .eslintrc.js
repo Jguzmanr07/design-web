@@ -9,17 +9,34 @@ module.exports = {
     'standard-with-typescript',
     'prettier',
   ],
+  ignorePatterns: ['vite.config.ts', 'src/vite-env.d.ts'],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module',
     project: './tsconfig.json',
+    sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: [
+    'react',
+    'typescript-sort-keys',
+    'sort-keys-fix',
+    'sort-destructure-keys',
+  ],
   rules: {
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      {
+        prefer: 'type-imports',
+      },
+    ],
+    '@typescript-eslint/no-unused-vars': ['error'],
     'import/order': [
       'error',
       {
+        alphabetize: {
+          caseInsensitive: true,
+          order: 'asc',
+        },
         groups: [
           'builtin',
           'external',
@@ -29,25 +46,15 @@ module.exports = {
           'object',
           'type',
         ],
+        'newlines-between': 'always',
         pathGroups: [
           {
-            pattern: '@/**',
             group: 'parent',
+            pattern: '@/**',
             position: 'before',
           },
         ],
         pathGroupsExcludedImportTypes: ['builtin'],
-        'newlines-between': 'always',
-        alphabetize: {
-          order: 'asc',
-          caseInsensitive: true,
-        },
-      },
-    ],
-    '@typescript-eslint/consistent-type-imports': [
-      'error',
-      {
-        prefer: 'type-imports',
       },
     ],
     'no-restricted-imports': [
@@ -61,13 +68,25 @@ module.exports = {
           './hooks',
           './types',
           './commons',
+          './utils',
         ],
       },
     ],
-    '@typescript-eslint/no-unused-vars': ['error'],
-    'react/jsx-uses-react': 'off',
-    'react/react-in-jsx-scope': 'off',
     'react/jsx-sort-props': 'warn',
+    'react/jsx-uses-react': 'off',
+    'react/no-unknown-property': ['error', { ignore: ['css'] }],
+    'react/react-in-jsx-scope': 'off',
+    'sort-destructure-keys/sort-destructure-keys': [
+      'warn',
+      { caseSensitive: false },
+    ],
+    'sort-keys-fix/sort-keys-fix': 'warn',
+    'typescript-sort-keys/interface': 'error',
+    'typescript-sort-keys/string-enum': 'error',
   },
-  ignorePatterns: ['vite.config.ts', 'src/vite-env.d.ts'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
 }

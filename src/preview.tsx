@@ -1,13 +1,13 @@
-import { Provider as JotaiProvider } from 'jotai'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-import { Preview } from '@/routes/Preview'
+import { Preview } from '@/features/preview/routes/Preview'
+import { Providers } from '@/providers'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <JotaiProvider>
+    <Providers>
       <Preview />
-    </JotaiProvider>
+    </Providers>
   </React.StrictMode>
 )

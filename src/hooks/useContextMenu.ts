@@ -5,9 +5,9 @@ import { ContextMenuContext } from '@/providers/ContextMenuProvider'
 import type { MouseEvent } from 'react'
 
 interface Menu {
-  text: string
   callback: VoidFunction
   children?: Menu[]
+  text: string
 }
 
 export interface UseContextMenuProps {

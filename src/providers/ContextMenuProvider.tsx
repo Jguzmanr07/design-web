@@ -12,9 +12,9 @@ import type { UseContextMenuProps } from '@/hooks/useContextMenu'
 import type { FC, PropsWithChildren, CSSProperties } from 'react'
 
 type Props = {
-  width?: CSSProperties['width']
   borderRadius?: CSSProperties['borderRadius']
   boxShadow?: CSSProperties['boxShadow']
+  width?: CSSProperties['width']
 } & PropsWithChildren
 
 interface ContextMenuContextValue {
@@ -30,10 +30,10 @@ export const ContextMenuContext = createContext(
 )
 
 const Provider: FC<Props> = ({
-  width = 300,
   borderRadius = 8,
   boxShadow = '3px 3px 5px 0px rgba(0, 0, 0, 0.4)',
   children,
+  width = 300,
 }) => {
   const [top, setTop] = useState<number | null>(null)
   const [left, setLeft] = useState<number | null>(null)
@@ -99,15 +99,19 @@ const Provider: FC<Props> = ({
           typeof left === 'number' && (
             <div
               className="context-menu"
+              onContextMenu={(event) => {
+                event.preventDefault()
+                event.stopPropagation()
+              }}
               style={{
-                position: 'fixed',
-                top,
-                left,
-                width,
-                padding: '8px 0',
                 backgroundColor: '#ddd',
                 borderRadius,
                 boxShadow,
+                left,
+                padding: '8px 0',
+                position: 'fixed',
+                top,
+                width,
               }}
             >
               {menus.map((menu) => (
