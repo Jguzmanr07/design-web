@@ -1,0 +1,25 @@
+name: 'Deploy'
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: marocchino/tool-versions-action@v1
+        id: versions
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.versions.outputs.nodejs}}
+      - run: npm i -g yarn
+      - run: yarn
+      - run: yarn build
+      - run: node -p -e '`NAME=${require("./package.json").name}`' >> $GITHUB_ENV
+      - uses: cloudflare/wrangler-action@2.0.0
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: pages publish dist --project-name="${{ env.NAME }}" --commit-message "Github Actions Deploy"
