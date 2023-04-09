@@ -9,7 +9,12 @@ module.exports = {
     'standard-with-typescript',
     'prettier',
   ],
-  ignorePatterns: ['vite.config.ts', 'src/vite-env.d.ts'],
+  ignorePatterns: [
+    'vite.config.ts',
+    'src/vite-env.d.ts',
+    'scripts',
+    'templates',
+  ],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -69,6 +74,7 @@ module.exports = {
           './types',
           './commons',
           './utils',
+          './templates',
         ],
       },
     ],

@@ -18,11 +18,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "shared/*": ["./shared/*"]
-    },
-    "jsxImportSource": "@emotion/react"
+      "shared/*": ["../../shared/*", "./src/shared/*"]
+    }
   },
-  "include": ["src", "shared"],
+  "include": ["src"],
   "references": [
     {
       "path": "./tsconfig.node.json"

@@ -4,18 +4,23 @@ import { ContextMenuContext } from '@/providers/ContextMenuProvider'
 
 import type { MouseEvent } from 'react'
 
-interface Menu {
+export interface SubMenu {
   callback: VoidFunction
-  children?: Menu[]
+  text: string
+}
+
+export interface Menu {
+  callback?: VoidFunction
+  subMenuList?: SubMenu[]
   text: string
 }
 
 export interface UseContextMenuProps {
-  menus: Menu[]
+  menuList: Menu[]
 }
 
 export const useContextMenu = ({
-  menus,
+  menuList,
 }: UseContextMenuProps): {
   onContextMenu: (event: MouseEvent<HTMLElement>) => void
 } => {
@@ -23,12 +28,15 @@ export const useContextMenu = ({
 
   const handleContextMenu = useCallback(
     (event: MouseEvent<HTMLElement>) => {
-      event.preventDefault()
       event.stopPropagation()
+      if (menuList.length === 0) {
+        return
+      }
+      event.preventDefault()
       const { clientX, clientY } = event
-      setContextMenu(clientY, clientX, menus)
+      setContextMenu(clientY, clientX, menuList)
     },
-    [menus, setContextMenu]
+    [menuList, setContextMenu]
   )
 
   return {

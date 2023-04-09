@@ -1,5 +1,4 @@
 import { useAtom } from 'jotai'
-import { useCallback } from 'react'
 
 import { editorProject } from '@/features/editor/store'
 import { addComponent, addPage } from '@/features/editor/utils'
@@ -14,16 +13,16 @@ import type { FC } from 'react'
 export const Directory: FC = () => {
   const [project, setProject] = useAtom(editorProject)
 
-  const handleAddPage = useCallback(() => {
+  const handleAddPage = (): void => {
     setProject((prevProject) => addPage(prevProject))
-  }, [setProject])
+  }
 
-  const handleAddComponent = useCallback(() => {
+  const handleAddComponent = (): void => {
     setProject((prevProject) => addComponent(prevProject))
-  }, [setProject])
+  }
 
   const contextMenu = useContextMenu({
-    menus: [
+    menuList: [
       {
         callback: handleAddPage,
         text: 'Add Page',
@@ -37,12 +36,11 @@ export const Directory: FC = () => {
 
   return (
     <div {...contextMenu} css={styles.container}>
-      <h2>Directory</h2>
-      <h3>Page</h3>
+      <h2>Page</h2>
       {project.pageList.map((page, index) => (
         <Page index={index} key={page.uid} page={page} />
       ))}
-      <h3>Component</h3>
+      <h2>Component</h2>
       {project.componentList.map((component, index) => (
         <Component component={component} index={index} key={component.uid} />
       ))}

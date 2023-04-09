@@ -1,13 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
-import { Preview } from '@/features/preview/routes/Preview'
-import { Providers } from '@/providers'
+import { App } from './App'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Providers>
-      <Preview />
-    </Providers>
+    <App />
   </React.StrictMode>
 )

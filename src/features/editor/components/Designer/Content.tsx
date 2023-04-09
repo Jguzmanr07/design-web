@@ -1,9 +1,8 @@
 import { useAtomValue } from 'jotai'
 import { useCallback, useEffect, useState } from 'react'
+import { IFRAME_EVENT, TARGET_TYPE } from 'shared/const'
 
-import { TARGET_TYPE } from '@/features/editor/const'
 import { editorProject } from '@/features/editor/store'
-import { IFRAME_EVENT } from '@/features/preview/const'
 
 import { styles } from './content.styles'
 import { Iframe } from './Iframe'
@@ -24,9 +23,15 @@ export const Content: FC = () => {
           break
         }
         if (type === TARGET_TYPE.PAGE) {
-          setReadyPageList((prev) => [...prev, target])
+          setReadyPageList((prevReadyPageList) => [
+            ...prevReadyPageList,
+            target,
+          ])
         } else if (type === TARGET_TYPE.COMPONENT) {
-          setReadyComponentList((prev) => [...prev, target])
+          setReadyComponentList((prevReadyComponentList) => [
+            ...prevReadyComponentList,
+            target,
+          ])
         }
         break
     }
@@ -44,6 +49,11 @@ export const Content: FC = () => {
       {project.componentList.map((component) => (
         <Iframe
           key={component.uid}
+          onReadyEnd={() => {
+            setReadyComponentList((prevReadyComponentList) =>
+              prevReadyComponentList.filter((uid) => uid !== component.uid)
+            )
+          }}
           ready={readyComponentList.includes(component.uid)}
           target={component}
           type={TARGET_TYPE.COMPONENT}
@@ -52,6 +62,11 @@ export const Content: FC = () => {
       {project.pageList.map((page) => (
         <Iframe
           key={page.uid}
+          onReadyEnd={() => {
+            setReadyPageList((prevReadyPageList) =>
+              prevReadyPageList.filter((uid) => uid !== page.uid)
+            )
+          }}
           ready={readyPageList.includes(page.uid)}
           target={page}
           type={TARGET_TYPE.PAGE}

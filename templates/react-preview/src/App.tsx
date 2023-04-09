@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { TARGET_TYPE } from '@/features/editor/const'
-import type { Component, Page } from '@/features/editor/types'
-import { IFRAME_EVENT, PREVIEW_PARAM } from '@/features/preview/const'
+import { TARGET_TYPE, PREVIEW_PARAM, IFRAME_EVENT } from 'shared/const'
+import type { Page, Component } from 'shared/types'
 
 import type { FC } from 'react'
+import { Element } from './components/Element'
 
-export const Preview: FC = () => {
+export const App: FC = () => {
   const search = window.location.search
   const searchParam = new URLSearchParams(search)
   const type = searchParam.get(PREVIEW_PARAM.TYPE)
@@ -53,18 +53,29 @@ export const Preview: FC = () => {
         target,
         type,
       },
-      window.location.origin
+      '*'
     )
     return () => {
       window.removeEventListener('message', handleMessage)
     }
   }, [handleMessage, target, type])
 
+  const elementList =
+    type === TARGET_TYPE.PAGE ? page?.elementList : component?.elementList
+
+  if (!Array.isArray(elementList)) {
+    return null
+  }
+
   return (
-    <div>
-      <h1>{type}</h1>
-      {JSON.stringify(page)}
-      {JSON.stringify(component)}
-    </div>
+    <>
+      {elementList.map((childElement, childIndex) => (
+        <Element
+          element={childElement}
+          indexList={[childIndex]}
+          key={[childIndex].join('-')}
+        />
+      ))}
+    </>
   )
 }
